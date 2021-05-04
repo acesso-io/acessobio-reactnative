@@ -93,9 +93,7 @@ public class AcessoBioModule extends ReactContextBaseJavaModule implements iAces
   @Override
   public void onSuccessCamera(ResultCamera result) {
 
-    Toast.makeText(reactContext, "Result vindo do nativo".concat(result.getProcessID()), Toast.LENGTH_LONG).show();
-    sendEvent(reactContext, "EventCalled", "Result vindo do nativo");
-    //  successCallback.invoke("entrou");
+    sendEvent(reactContext, "onSuccessCameraJS", result.getBase64());
 
   }
 
