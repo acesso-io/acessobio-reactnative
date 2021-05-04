@@ -35,7 +35,7 @@ export default class  App extends Component  {
   render(){
 
     const eventEmitter = new NativeEventEmitter(NativeModules.AcessoBioModule);
-    this.eventListener = eventEmitter.addListener('EventCalled', (event) => {
+    this.eventListener = eventEmitter.addListener('onSuccessCameraJS', (event) => {
        console.log(event.eventProperty) 
 
         updateText(event.eventProperty);
