@@ -1,12 +1,12 @@
 package com.acessobioreactnative;
 
-import com.acesso.acessobio_android.iAcessoBioCamera;
+import com.acesso.acessobio_android.iAcessoBio;
+import com.acesso.acessobio_android.iAcessoBioSelfie;
 import com.acesso.acessobio_android.services.dto.ErrorBio;
 import com.acesso.acessobio_android.services.dto.ResultCamera;
 import com.facebook.react.ReactActivity;
 
-
-public class MainActivity extends ReactActivity implements iAcessoBioCamera {
+public class MainActivity extends ReactActivity implements iAcessoBio, iAcessoBioSelfie {
 
   public AcessoBioModule acessoBioModule;
 
@@ -20,13 +20,33 @@ public class MainActivity extends ReactActivity implements iAcessoBioCamera {
   }
 
   @Override
-  public void onSuccessCamera(ResultCamera result) {
-    System.out.println(result);
-    acessoBioModule.onSuccessCamera(result);
+  public void onSuccessSelfie(ResultCamera resultCamera) {
+    acessoBioModule.onSuccessSelfie(resultCamera);
   }
 
   @Override
-  public void onErrorCamera(ErrorBio errorBio) {
+  public void onErrorSelfie(ErrorBio errorBio) {
 
   }
+  
+  @Override
+  public void onErrorAcessoBio(ErrorBio errorBio) {
+
+  }
+
+  @Override
+  public void userClosedCameraManually() {
+
+  }
+
+  @Override
+  public void systemClosedCameraTimeoutSession() {
+
+  }
+
+  @Override
+  public void systemChangedTypeCameraTimeoutFaceInference() {
+
+  }
+
 }

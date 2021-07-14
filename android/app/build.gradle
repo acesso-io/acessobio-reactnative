@@ -187,7 +187,7 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
-    implementation 'com.github.acesso-io:acessobio-android:1.1.12'
+    implementation 'com.github.acesso-io:acessobio-android:1.2.13'
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'

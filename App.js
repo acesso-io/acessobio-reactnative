@@ -36,10 +36,8 @@ export default class  App extends Component  {
 
     const eventEmitter = new NativeEventEmitter(NativeModules.AcessoBioModule);
     this.eventListener = eventEmitter.addListener('onSuccessCameraJS', (event) => {
-       console.log(event.eventProperty) 
-
-        updateText(event.eventProperty);
-
+        console.log(event.eventProperty); 
+        updateText("base64 gerado com sucesso no objeto event.eventProperty");
       });
 
       updateText = (message) => {
@@ -60,7 +58,7 @@ export default class  App extends Component  {
             NativeModules.AcessoBioModule.callCamera();
           }}
         >
-          <Text>Tirar selfie</Text>
+          <Text>Abrir câmera</Text>
         </TouchableOpacity>
       </View>
     );
