@@ -35,9 +35,13 @@ export default class  App extends Component  {
   render(){
 
     const eventEmitter = new NativeEventEmitter(NativeModules.AcessoBioModule);
-    this.eventListener = eventEmitter.addListener('onSuccessCameraJS', (event) => {
-        console.log(event.eventProperty); 
-        updateText("base64 gerado com sucesso no objeto event.eventProperty");
+
+    this.eventListener = eventEmitter.addListener('onSuccess', (resultEvent) => {
+        updateText("Base64 gerado com sucesso no objeto resultEvent.objResult");
+      });
+
+      this.eventListener = eventEmitter.addListener('onError', (resultEvent) => {
+        updateText("Erro: ".concat(resultEvent.objResult));
       });
 
       updateText = (message) => {
@@ -55,10 +59,26 @@ export default class  App extends Component  {
         <TouchableOpacity
           style={styles.button}
           onPress={ ()=> {
-            NativeModules.AcessoBioModule.callCamera();
+            NativeModules.AcessoBioModule.callDefaultCamera();
           }}
         >
-          <Text>Abrir câmera</Text>
+          <Text>Abrir câmera normal</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={ ()=> {
+            NativeModules.AcessoBioModule.callSmartCamera();
+          }}
+        >
+          <Text>Abrir câmera inteligente</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={ ()=> {
+            NativeModules.AcessoBioModule.callDocumentCamera();
+          }}
+        >
+          <Text>Abrir câmera documentos</Text>
         </TouchableOpacity>
       </View>
     );
@@ -75,7 +95,8 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     backgroundColor: "#DDDDDD",
-    padding: 10
+    padding: 10,
+    marginTop:10
   },
   countContainer: {
     alignItems: "center",
