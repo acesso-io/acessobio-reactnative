@@ -13,6 +13,11 @@
 }
 
 - (void)onSucessCameraFace: (NSString *)base64;
+- (void)onErrorCameraFace:(NSString *)error;
+- (void)onErrorAcessoBioManager:(NSString *)error;
+- (void)systemClosedCameraTimeoutFaceInference;
+- (void)systemClosedCameraTimeoutSession;
+- (void)userClosedCameraManually;
 
 @end
 

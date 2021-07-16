@@ -28,6 +28,7 @@ RCT_EXPORT_METHOD(addEvent:(NSString *)name location:(NSString *)location)
   RCTLogInfo(@"Pretending to create an event %@ at %@", name, location);
 }
 
+
 //RCT_EXPORT_METHOD(findEvents:(RCTResponseSenderBlock)callback)
 //{
 //
@@ -77,13 +78,32 @@ RCT_EXTERN_METHOD(callDocumentCamera)
     // Remove upstream listeners, stop unnecessary background tasks
 }
 
-
 - (void)onSucessCameraFace: (NSString *)base64 {
   if(hasListeners) {
-    [self sendEventWithName:@"onSuccess" body:base64];
+    [self sendEventWithName:@"onSuccess" body:@{@"objResult": base64}];
+    
   }  
 }
 
+- (void)onErrorCameraFace:(NSString *)error {
+  if(hasListeners) {
+    [self sendEventWithName:@"onError" body:@{@"objResult": error}];
+  }
+}
+
+- (void)systemClosedCameraTimeoutFaceInference {
+  [self sendEventWithName:@"onError" body:@{@"objResult": @"Timeout de inferencia inteligente de face excedido."}];
+}
+
+- (void)systemClosedCameraTimeoutSession {
+  [self sendEventWithName:@"onError" body:@{@"objResult": @"Tempo de sessão excedido"}];
+}
+
+- (void)userClosedCameraManually {
+  if(hasListeners) {
+    [self sendEventWithName:@"onError" body:@{@"objResult": @"Usuário fechou a câmera manualmente"}];
+  }
+}
 
 -(void)showAlert{
   
@@ -98,8 +118,6 @@ RCT_EXTERN_METHOD(callDocumentCamera)
   });
   
 }
-
-
 
 @end
 

@@ -44,24 +44,40 @@
 }
 
 - (void)onErrorAcessoBioManager:(NSString *)error {
-  NSLog(@"%@", error);
+  [self.acessoBioModule onErrorAcessoBioManager:error];
+  [self sair];
 }
 
 - (void)onSuccesCameraFace:(CameraFaceResult *)result {
   [self.acessoBioModule onSucessCameraFace:result.base64];
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-    [self sair];
-  });
+  [self sair];
 }
 
 - (void)onErrorCameraFace:(NSString *)error {
   NSLog(@"%@", error);
+  [self.acessoBioModule onErrorCameraFace:error];
+  [self sair];
+}
+
+- (void)systemClosedCameraTimeoutFaceInference {
+  [self.acessoBioModule systemClosedCameraTimeoutSession];
+  [self sair];
+}
+
+- (void)systemClosedCameraTimeoutSession {
+  [self.acessoBioModule systemClosedCameraTimeoutSession];
+  [self sair];
+}
+
+- (void)userClosedCameraManually {
+  [self.acessoBioModule userClosedCameraManually];
+  [self sair];
 }
 
 - (void)sair{
-  [self dismissViewControllerAnimated:YES completion:nil];
-
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+    [self dismissViewControllerAnimated:YES completion:nil];
+  });
 }
-
 
 @end

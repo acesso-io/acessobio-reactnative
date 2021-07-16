@@ -137,7 +137,7 @@ public class AcessoBioModule extends ReactContextBaseJavaModule implements iAces
 
   @Override
   public void systemChangedTypeCameraTimeoutFaceInference() {
-    sendEvent(reactContext, "onError", "Timeout de nferencia inteligente de face excedido.");
+    sendEvent(reactContext, "onError", "Timeout de inferencia inteligente de face excedido.");
   }
 
   @Override
