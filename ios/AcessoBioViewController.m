@@ -19,11 +19,28 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
   acessoBioManager = [[AcessoBioManager alloc]initWithViewController:self url:nil apikey:nil token:nil];
-  [self performSelector:@selector(callCamera) withObject:nil afterDelay:1.0];
+  
+  if([self.mode isEqualToNumber:[NSNumber numberWithInt:0]]) {
+    [self performSelector:@selector(callDefaultCamera) withObject:nil afterDelay:0.5];
+  }else if([self.mode isEqualToNumber:[NSNumber numberWithInt:1]]) {
+    [self performSelector:@selector(callSmartCamera) withObject:nil afterDelay:0.5];
+  }else {
+    [self performSelector:@selector(callDocumentCamera) withObject:nil afterDelay:0.5];
+  }
 }
 
-- (void)callCamera {
+- (void)callDefaultCamera {
+  [acessoBioManager disableSmartCamera];
   [acessoBioManager openCameraFace];
+}
+
+- (void)callSmartCamera {
+  [acessoBioManager enableSmartCamera];
+  [acessoBioManager openCameraFace];
+}
+
+- (void)callDocumentCamera {
+  [acessoBioManager openCameraDocuments:DocumentCNH];
 }
 
 - (void)onErrorAcessoBioManager:(NSString *)error {

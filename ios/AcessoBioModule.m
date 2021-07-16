@@ -9,6 +9,11 @@
 #import <React/RCTLog.h>
 #import "AcessoBioViewController.h"
 
+typedef NS_ENUM(NSInteger, CameraMode) {
+  DEFAULT,
+  SMART,
+  DOCUMENT
+};
 
 @implementation AcessoBioModule
 
@@ -30,22 +35,34 @@ RCT_EXPORT_METHOD(addEvent:(NSString *)name location:(NSString *)location)
 //}
 
 
-RCT_EXTERN_METHOD(callCamera)
+RCT_EXTERN_METHOD(callDefaultCamera)
+- (void)callDefaultCamera {
+  [self openCamera:DEFAULT];
+}
 
-- (void)callCamera {
-  
+RCT_EXTERN_METHOD(callSmartCamera)
+- (void)callSmartCamera {
+  [self openCamera:SMART];
+}
+
+RCT_EXTERN_METHOD(callDocumentCamera)
+- (void)callDocumentCamera {
+  [self openCamera:DOCUMENT];
+}
+
+- (void)openCamera: (CameraMode)cameraMode {
   dispatch_async(dispatch_get_main_queue(), ^{
     
     AcessoBioViewController *unicoView = [AcessoBioViewController new];
     
     UIViewController *view = [UIApplication sharedApplication].delegate.window.rootViewController;
     unicoView.viewOrigin = view;
+    unicoView.mode = [NSNumber numberWithInt:cameraMode];
     unicoView.acessoBioModule = self;
     
     [view presentViewController:unicoView animated:YES completion:nil];
    
   });
-  
 }
 
 // Will be called when this module's first listener is added.
@@ -62,12 +79,9 @@ RCT_EXTERN_METHOD(callCamera)
 
 
 - (void)onSucessCameraFace: (NSString *)base64 {
-  NSLog(@"base64: %@", base64);
-
   if(hasListeners) {
-    [self sendEventWithName:@"onSuccessCameraJS" body:base64];
-  }
-  
+    [self sendEventWithName:@"onSuccess" body:base64];
+  }  
 }
 
 

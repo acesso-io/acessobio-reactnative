@@ -13,10 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AcessoBioViewController : UIViewController <AcessoBioDelegate> {
   AcessoBioManager *acessoBioManager;
 }
-
 @property (strong, nonatomic) AcessoBioModule *acessoBioModule;
-
 @property (strong, nonatomic) UIViewController *viewOrigin;
+@property (strong, nonatomic) NSNumber *mode;
 
 @end
 
